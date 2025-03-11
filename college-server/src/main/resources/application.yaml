@@ -1,0 +1,17 @@
+ktor:
+    application:
+        modules:
+            - com.andreasmlbngaol.ApplicationKt.module
+    deployment:
+        port: 8080
+    security:
+      basic-auth:
+        realm: "Access to the API"
+postgres:
+  url: "jdbc:postgresql://localhost/college_kotlin_db"
+  driver: "org.postgresql.Driver"
+  user: "postgres"
+  password: "password"
+  domain: "https://jwt-provider-domain/"
+  audience: "jwt-audience"
+  realm: "ktor sample app"
