@@ -1,6 +1,8 @@
 package com.andreasmlbngaol
 
 import com.andreasmlbngaol.dao.UserDao
+import com.andreasmlbngaol.dto.Student
+import com.andreasmlbngaol.dto.Teacher
 import com.andreasmlbngaol.dto.request.StudentRequest
 import com.andreasmlbngaol.dto.request.TeacherRequest
 import com.andreasmlbngaol.enums.Role
@@ -67,7 +69,9 @@ fun Application.configureSerialization() {
                         return@get
                     }
 
-                    call.respond(UserDao.getUsersByRole(role))
+                    val user = UserDao.getUsersByRole(role)
+                    if(role == Role.STUDENT) call.respond(user.map { it as Student })
+                    else call.respond(user.map { it as Teacher })
                 } catch (e: IllegalArgumentException) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@get
